@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>Beta Base - Gyms</title>
+</head>
+<body>
+
+    <%- include('partials/navbar') %>
+    
+    <!-- Header -->
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <h1>All Gyms</h1>
+        </div>
+    </div>
+
+    <!-- Add gym form -->
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <form id="new_gym" class = "top-buffer form-inline">
+                <input class = "form-control" type="text" placeholder='Gym Name' id='name' name='name'>
+                <input class = "form-control" type="text" placeholder='City' id='city' name='city'>
+                <select class = "form-control" name="area_name" id="area_name">
+                    <option value="null" selected>null</option>
+                    <% for (let state of states) {%>
+                        <option value="<%=state.id%>"><%= state.stateName %></option>
+                    <% }%>
+                </select>
+                <input class = "form-control" type="text" placeholder='Address' id='address' name='address'>
+                <input class = "form-control" type="text" placeholder='Cost' id='cost' name='cost'>
+                <input class="btn btn-success" type="submit" id='add_gym'>
+            </form>
+        </div>
+    </div>
+
+    <!-- Gym display table -->
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <table id="gym-table" class='table table-striped table-hover table-sm top-buffer'>
+                <thead>
+                    <tr>
+                        <th colspan="7">Gyms</th>
+                    </tr>
+                    <tr>
+                        <th>Gym Name</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Address</th>
+                        <th>Cost / Day</th>
+                    </tr>
+                </thead>
+
+                <tbody id="gym-table-body">
+                    <% for (let gym of gyms){%>
+                        <tr id=<%= gym.id %>>
+                            <td><%= gym.name %> </td>
+                            <td><%= gym.city %></td>
+                            <td><%= gym.stateID %></td>
+                            <td><%= gym.address %></td>
+                            <td>$<%= gym.cost %></td>
+                            <td><button class='modal-btn btn btn-sm btn-warning'>Edit</button></td>
+                            <td>
+                                <form action="/gyms/<%=gym.id%>?_method=DELETE" method="POST">
+                                    <input class="btn btn-sm btn-danger" type="submit" id='add_gym' value='Delete'>
+                                </form>
+                            </td>
+                            
+                        </tr>    
+                    <% }%>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- https://www.w3schools.com/howto/howto_css_modals.asp -->
+    <!-- Trigger/Open The Modal for editing -->
+    <%- include('partials/modal') %>
+
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <a href="/"><button class="btn btn-sm btn-info">Back to Homepage</button></a>
+        </div>
+    </div>
+    <script src="js/scripts.js"></script>
+    <!-- <script src="js/gyms.js"></script> -->
+</body>
+</html>

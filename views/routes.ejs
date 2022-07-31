@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Beta Base - Routes</title>
+</head>
+
+<body>
+
+    <%- include('partials/navbar') %>
+
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <h1>All Routes</h1>
+        </div>
+    </div>
+
+    <!-- Add new route -->
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <form action="/routes/standalone/add" method="POST" id="add_route" class='top-buffer form-inline'>
+                <input class = "form-control" type="text" placeholder='Route Name' id='route_name' name='route_name'>
+                <!-- <input class = "form-control" type="text" placeholder='Grade' id='grade' name='grade'> -->
+                <select class = "form-control" name="grade" id="grade">
+                        <option value="5.5">5.5</option>
+                        <option value="5.6">5.6</option>
+                        <option value="5.7">5.7</option>
+                        <option value="5.8">5.8</option>
+                        <option value="5.9">5.9</option>
+                        <option value="5.10">5.10</option>
+                        <option value="5.11">5.11</option>
+                        <option value="5.12">5.12</option>
+                        <option value="5.13">5.13</option>
+                        <option value="5.14">5.14</option>
+                        <option value="5.15">5.15</option>
+                </select>
+                <input class = "form-control" type="text" placeholder='Description' id='description' name='description'>
+                <select class = "form-control" name="area_name" id="area_name">
+                    <option value="" selected="selected">Select an Area</option>
+                    <% for (let area of area_names) {%>
+                            <option value="<%=area.name%>"><%= area.name %></option>
+                    <% }%>
+                </select>
+                <button class="btn btn-success">Add Route</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- All routes table -->
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <table id="routes-table" class='table table-striped table-hover table-sm top-buffer'>
+                <thead>
+                    <tr>
+                        <th colspan="7">Routes</th>
+                    </tr>
+                    <tr>
+                        <th>Route ID</th>
+                        <th>Route Name</th>
+                        <th>Grade</th>
+                        <th>Description</th>
+                        <th>Area ID</th>
+                    </tr>
+                </thead>
+
+                <tbody id="routes-table-body">
+                    <% for (let route of routes) {%>
+                        <tr>
+                            <td><%= route.id %></td>
+                            <td><%= route.name %></td>
+                            <td><%= route.grade %></td>
+                            <td><%= route.description %></td>
+                            <td><%= route.areaID %> </td>
+                            <td>
+                                <form action="/routes/<%=route.id%>?_method=DELETE" method="POST">
+                                    <button class="btn btn-sm btn-danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }%>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <!-- Filter drop down for selecting desired grade -->
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <label for="filter">Select grade to see all matching Routes</label>
+            <form action="/routes/filter/" method="POST" id="filter_routes" class='top-buffer form-inline'>
+                <select class = "form-control" name="filter" id="filter">
+                    <% for (let route of routes) {%>
+                        <option value="<%=route.grade%>"><%= route.grade %></option>
+                    <% }%>
+                </select>
+                <input type="submit" class="btn btn-success">Filter Routes</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <a href="/"><button class="btn btn-sm btn-info">Back to Homepage</button></a>
+        </div>
+    </div>
+
+</body>
+
+</html>

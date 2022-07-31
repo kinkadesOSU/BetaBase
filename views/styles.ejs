@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Beta Base - Styles</title>
+</head>
+
+<body>
+    
+    <%- include('partials/navbar') %>
+
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <h1>All Styles</h1>
+        </div>
+    </div>
+
+    <!-- add new style -->
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <form action="/styles/standalone/add" method="POST" id="add_style" class='top-buffer form-inline'>
+                <input class = "form-control" type="text" placeholder='Style Name' id='style_name' name='style_name'>
+                <button class="btn btn-success">Add Style</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- all styles -->
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <table id="styles-table" class='table table-striped table-hover table-sm top-buffer'>
+                <thead>
+                    <tr>
+                        <th colspan="3">Styles</th>
+                    </tr>
+                    <tr>
+
+                        <th>Style ID</th>
+                        <th>Style Name</th>
+                    </tr>
+                </thead>
+
+                <tbody id="styles-table-body">
+                    <% for (let style of styles) {%>
+                    <tr>
+                        <td><%= style.id %></td>
+                        <td><%= style.type %></td>
+                        <td>
+                            <form action="/styles/<%=style.id%>?_method=DELETE" method="POST">
+                                <button class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <% }%>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <a href="/"><button class="btn btn-sm btn-info">Back to Homepage</button></a>
+        </div>
+    </div>
+
+</body>
+
+</html>

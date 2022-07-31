@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Beta Base - Areas</title>
+</head>
+
+<body>
+    
+    <%- include('partials/navbar') %>
+
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <h1>All Areas</h1>
+        </div>
+    </div>
+
+    <!-- Add new area table -->
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <form action="/areas/add" method="POST" id="add_area" class="top-buffer form-inline">
+                <input class = "form-control" type="text" placeholder='Area Name' id='area' name='areaname'>
+                <input class = "form-control" type="text" placeholder='Lattitude' id='latitude' name='latitude'>
+                <input class = "form-control" type="text" placeholder='Longitude' id='longitude' name='longitude'>
+                <select class = "form-control" name="state" id="state">
+                    <% for (let state of states) {%>
+                        <option value="<%=state.id%>"><%= state.stateName %></option>
+                    <% }%>
+                </select>
+                <button class="btn btn-success">Add Area</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Show all areas table -->
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <table id="area-table" class='table table-striped table-hover table-sm'>
+                <thead>
+                    <tr>
+                        <th colspan="6">Areas</th>
+                    </tr>
+                    <tr>
+                        <th>Area ID</th>
+                        <th>Area Name</th>
+                        <th>Lat</th>
+                        <th>Long</th>
+                        <th>stateID</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="area-table-body">
+                    <% for (let area of areas){%>
+                        <tr>
+                            <td class=""><%= area.id %> </td>
+                            <td><%= area.name %></td>
+                            <td><%= area.latitude %></td>
+                            <td><%= area.longitude %></td>
+                            <td><%= area.stateID %></td>
+                            <td><button class='btn btn-sm btn-success'><a href="/areas/<%=area.id%>/edit">Edit</a></td></button>
+                            <td>
+                                <form action="/areas/<%=area.id%>?_method=DELETE" method="POST">
+                                    <button class="btn btn-sm btn-danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>    
+                    <% }%>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <a href="/"><button class="btn btn-sm btn-info">Back to Homepage</button></a>
+        </div>
+    </div>
+
+</body>
+
+</html>

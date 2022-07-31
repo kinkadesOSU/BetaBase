@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Beta Base - Routes-Styles</title>
+</head>
+
+<body>
+    
+    <%- include('partials/navbar') %>
+
+
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <h1>All Routes-Styles</h1>
+        </div>
+    </div>
+
+
+    <!-- Routes Styles Form -->
+    <div class="row justify-content-center">
+        <form action="/routes-styles/add" method="POST" id="add_route_style" class="top-buffer form-inline">
+            <select class="form-control" name="route_name" id="route_name">
+                <option value="" selected="selected">Select a Route</option>
+                <% for (let route of routes) {%>
+                        <option value="<%= route.name %>"><%= route.name %></option>
+                <% }%>
+            </select>
+            <select class="form-control" name="style_name_test" id="style_name_test">
+                <option value="" selected="selected">Select a Style</option>
+                <% for (let style of styles) {%>
+                        <option value="<%= style.type %>"><%= style.type %></option>
+                <% }%>
+            </select>
+            <input class="btn btn-success" type="submit" id='add-style' value="Add Route-Style">
+        </form>
+    </div>
+
+    <!-- Routes - Styles Table -->
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <table id="routes-styles-table" class='table table-striped table-hover table-sm'>
+                <thead>
+                    <tr>
+                        <th colspan="3">Routes-Styles</th>
+                    </tr>
+                    <tr>
+                        <th>Route-Style ID</th>
+                        <th>Route Name</th>
+                        <th>Style Type</th>
+                    </tr>
+                </thead>
+
+                <tbody id="routes-styles-table-body">
+                    <% for (let route_style of routes_styles) {%>
+                        <tr>
+                            <td><%= route_style.id %></td>
+                            <td><%= route_style.name %></td>
+                            <td><%= route_style.type %></td>
+                            <td>
+                                <form action="/routes-styles/<%=route_style.id%>?_method=DELETE" method="POST">
+                                    <button class="btn btn-sm btn-danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }%>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Container to place Routes and Styles side-by-side -->
+    <div class="container">
+        <div class="row">
+            
+            <!-- Routes table -->
+            <div class="col-sm justify-content-center">
+                <div class="col-auto">
+                    <table id="routes-table" class='table table-striped table-hover table-sm'>
+                        <thead>
+                            <tr>
+                                <th colspan="5">Routes</th>
+                            </tr>
+                            <tr>
+                                <th>Route ID</th>
+                                <th>Route Name</th>
+                                <th>Grade</th>
+                                <th>Description</th>
+                                <th>Area ID</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="routes-table-body">
+                            <% for (let route of routes) {%>
+                                <tr>
+                                    <td><%= route.id %></td>
+                                    <td><%= route.name %></td>
+                                    <td><%= route.grade %></td>
+                                    <td><%= route.description %></td>
+                                    <td><%= route.areaID %> </td>
+                                    <!-- <td>
+                                        <form action="/routes/<%=route.id%>?_method=DELETE" method="POST">
+                                            <button class="btn btn-sm btn-danger">Delete</button>
+                                        </form>
+                                    </td> -->
+                                </tr>
+                            <% }%>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Styles Table -->
+            <div class="col-sm justify-content-center">
+                <div class="col-auto">
+                    <table id="styles-table" class='table table-striped table-hover table-sm'>
+                        <thead>
+                            <tr>
+                                <th colspan="3">Styles</th>
+                            </tr>
+                            <tr>
+                                <th>Style ID</th>
+                                <th>Style Name</th>
+                            </tr>
+                        </thead>
+                
+                        <tbody id="styles-table-body">
+                            <% for (let style of styles) {%>
+                            <tr>
+                                <td><%= style.id %></td>
+                                <td><%= style.type %></td>
+                                <!-- <td>
+                                    <form action="/styles/<%=style.id%>?_method=DELETE" method="POST">
+                                        <button class="btn btn-sm btn-danger">Delete</button>
+                                    </form>
+                                </td> -->
+                            </tr>
+                            <% }%>
+                
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>  
+    <div class="row justify-content-center">
+        <a href="/"><button class="btn btn-sm btn-info">Back to Homepage</button></a>
+    </div>
+
+</body>
+
+</html>
